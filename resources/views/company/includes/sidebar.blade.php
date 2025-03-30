@@ -2,7 +2,7 @@
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     <a class="m-0 navbar-brand text-wrap text-center p-1" href="#">
-      <div class="font-bold text-xl fs-5"><i class="bi bi-briefcase-fill"></i> ENUY </div>
+      <div class="font-bold text-xl fs-5"><i class="bi bi-briefcase-fill"></i> Venesa </div>
       <p class="mb-0 underline underline-offset-4">{{$role}}</p>
     </a>
   </div>

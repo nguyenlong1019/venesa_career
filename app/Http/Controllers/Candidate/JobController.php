@@ -9,6 +9,7 @@ use App\Models\Candidate;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class JobController extends Controller
 {
@@ -137,6 +138,7 @@ class JobController extends Controller
         }
 
         $cv_path = "";
+        $video_intro_path = "";
 
         if ($request->hasfile('cv')) {
             $cv = $request->file('cv');
@@ -155,10 +157,18 @@ class JobController extends Controller
         }
 
         if ($request->hasfile('video-intro')) {
+            Log::info('Video file detected');
+
             $video_intro = $request->file('video-intro');
-            $videoName = time() . rand(1, 100) . '.' . $video_intro->extension();
-            if ($video_intro->move(public_path('uploads'), $videoName)) {
-                $video_intro_path = '/' . 'uploads/' . $videoName;
+
+            if ($video_intro->getSize() > 20 * 1024 * 1024) {
+                session()->flash('error', 'Video không được vượt quá 20 MB');
+                return back();
+            }
+
+            $videoName = time() . rand(1, 1000) . '.' . $video_intro->extension();
+            if ($video_intro->move(public_path('uploads/videos'), $videoName)) {
+                $video_intro_path = '/uploads/videos/' . $videoName;
                 echo $video_intro_path;
             } else {
                 session()->flash('error', 'Upload Video thất bại');
