@@ -320,5 +320,146 @@
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
+<button id="chatbot-button" class="chatbot-btn">
+    <i class="fa fa-comments"></i> <!-- Icon chat -->
+</button>
+
+
+<div class="chatbot-container">
+    <div class="chatbot-header">
+        <h5 class="mb-0">Chatbot Thẩm Mỹ Viện Venesa</h5>
+        <button class="btn-close" id="close-chatbot"></button>
+    </div>
+    <div class="chatbot-body" id="chatbot-body">
+        <!-- Nội dung trả lời chatbot sẽ hiển thị ở đây -->
+    </div>
+    <div class="chatbot-footer">
+        <input type="text" id="user-input" class="form-control" placeholder="Hỏi tôi điều gì...">
+        <button class="btn btn-primary" id="send-message">Gửi</button>
+    </div>
+</div>
+
+<style>
+/* Style cho chatbot button */
+.chatbot-btn {
+    position: fixed;
+    bottom: 30px; /* Đặt cách đáy trang một khoảng cách */
+    right: 30px; /* Đặt cách phải trang một khoảng cách */
+    background-color: #007bff; /* Màu nền */
+    color: white; /* Màu icon */
+    border: none; /* Không có viền */
+    border-radius: 50%; /* Làm cho button hình tròn */
+    width: 60px; /* Kích thước button */
+    height: 60px; /* Kích thước button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px; /* Kích thước icon */
+    cursor: pointer; /* Thêm dấu chuột khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng cho button */
+    z-index: 9999; /* Đảm bảo button luôn nằm trên cùng */
+    transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+}
+
+.chatbot-btn:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+
+.chatbot-btn i {
+    pointer-events: none; /* Không cho phép tương tác với icon */
+}
+
+
+    /* Chatbot Style */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    display: none;
+}
+
+.chatbot-header {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chatbot-body {
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+}
+
+.chatbot-footer {
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.chatbot-footer input {
+    flex: 1;
+}
+
+.chatbot-footer button {
+    flex: 0;
+}
+
+/* Hiển thị khi chatbot mở */
+.chatbot-container.show {
+    display: block;
+}
+
+</style>
+
+<script>
+    // Dữ liệu câu hỏi và trả lời
+const faq = {
+    "Bạn là ai?": "Tôi là chatbot của Thẩm mỹ viện Venesa. Tôi có thể giúp bạn tìm hiểu thông tin về các dịch vụ của chúng tôi.",
+    "Dịch vụ của bạn là gì?": "Chúng tôi cung cấp các dịch vụ chăm sóc sắc đẹp như phẫu thuật thẩm mỹ, chăm sóc da, điều trị mụn, và nhiều dịch vụ khác.",
+    "Giờ làm việc của bạn?": "Thẩm mỹ viện Venesa mở cửa từ 9:00 sáng đến 6:00 chiều, từ thứ 2 đến thứ 7.",
+    "Địa chỉ của bạn ở đâu?": "Chúng tôi có mặt tại số 123, Phố ABC, Quận XYZ, Hà Nội.",
+    "Liệu trình chăm sóc da có dài không?": "Các liệu trình chăm sóc da tại Venesa tùy thuộc vào nhu cầu của bạn, thường kéo dài từ 30 phút đến 2 giờ."
+};
+
+// Hiển thị chatbot khi click vào nút
+document.getElementById('chatbot-button').addEventListener('click', () => {
+    document.querySelector('.chatbot-container').classList.add('show');
+});
+
+// Đóng chatbot khi click vào nút đóng
+document.getElementById('close-chatbot').addEventListener('click', () => {
+    document.querySelector('.chatbot-container').classList.remove('show');
+});
+
+// Xử lý gửi tin nhắn
+document.getElementById('send-message').addEventListener('click', () => {
+    const userInput = document.getElementById('user-input').value.trim();
+    const chatbotBody = document.getElementById('chatbot-body');
+
+    if (userInput) {
+        // Thêm tin nhắn người dùng vào chatbot
+        chatbotBody.innerHTML += `<div class="user-message">${userInput}</div>`;
+        document.getElementById('user-input').value = ''; // Xóa input
+
+        // Tìm câu trả lời từ FAQ
+        const answer = faq[userInput] || "Xin lỗi, tôi không hiểu câu hỏi của bạn.";
+        
+        // Thêm câu trả lời từ chatbot vào
+        setTimeout(() => {
+            chatbotBody.innerHTML += `<div class="chatbot-message">${answer}</div>`;
+            chatbotBody.scrollTop = chatbotBody.scrollHeight; // Cuộn đến cuối
+        }, 500);
+    }
+});
+
+</script>
 
 @endsection

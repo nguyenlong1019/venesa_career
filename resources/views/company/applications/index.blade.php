@@ -2,6 +2,57 @@
 
 @section('content')
 
+<!-- Modal -->
+<form action="/company/applications" method="GET">
+  @csrf
+  <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="filterModalLabel">Smart Filter</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Lọc theo năm kinh nghiệm -->
+          <div class="form-group">
+            <label for="experience">Kinh nghiệm (năm)</label>
+            <select class="form-select" name="experience" id="experience">
+              <option value="">Tất cả</option>
+              <option value="6 tháng">6 tháng</option>
+              <option value="1 năm">1 năm</option>
+              <option value="2 năm">2 năm</option>
+            </select>
+          </div>
+
+          <!-- Lọc theo chứng chỉ ngoại ngữ -->
+          <div class="form-group">
+            <label for="language_certificate">Chứng chỉ ngoại ngữ</label>
+            <select class="form-select" name="language_certificate" id="language_certificate">
+              <option value="">Tất cả</option>
+              <option value="IELTS">IELTS</option>
+              <option value="TOEFL">TOEFL</option>
+              <option value="TOEIC">TOEIC</option>
+            </select>
+          </div>
+
+          <!-- Tìm kiếm theo từ khóa -->
+          <div class="form-group">
+            <label for="keywords">Từ khóa</label>
+            <textarea rows="5" style="resize: none;" class="form-control" placeholder="Tìm kiếm theo từ khóa" name="keywords" id="keywords"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- Nút Lọc, khi click sẽ đóng modal -->
+          <button type="submit" class="btn btn-info" data-bs-dismiss="modal">Lọc CV</button>
+          <!-- Nút Đóng modal -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
 <div class="row">
   <div class="col-12">
     <div class="card mb-4">
@@ -9,6 +60,15 @@
         <div class="d-flex flex-row justify-content-between">
           <h5 class="mb-0">Danh sách ứng viên</h5>
           <div class="flex gap-3">
+          <button
+            type="button"
+            class="bg-blue-500 text-white font-bold d-flex align-items-center gap-1 px-3 hover:opacity-90 rounded-lg text-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#filterModal">
+            <i class="bi bi-funnel text-lg mt-1"></i>
+            Smart Filter
+          </button>
+
             <button
               type="button"
               class="bg-blue-500 text-white font-bold d-flex align-items-center gap-1 px-3 hover:opacity-90 rounded-lg text-sm"
@@ -58,6 +118,11 @@
                     data-bs-toggle="modal" data-bs-target="#cvModal-{{$candidate->application->id}}">
                     <i class="bi bi-eye"></i> Xem CV
                   </button>
+                  @if (!empty($candidate->video_intro_path))
+                    <button data-bs-toggle="modal" data-bs-target="#videoModal-{{$candidate->application->id}}" class="text-xs bg-purple-400 text-white py-1 px-2 rounded-sm">
+                      <i class="bi bi-play-circle"></i> Xem Video
+                    </button>
+                  @endif
                 </td>
                 <td class="">
                   <div class="text-xs font-weight-bold mb-0">{{$candidate->job_title}}</div>
@@ -88,6 +153,28 @@
                   </a>
                 </td>
               </tr>
+
+              @if (!empty($candidate->video_intro_path))
+                <div class="modal fade" id="videoModal-{{$candidate->application->id}}" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="videoModalLabel-{{$candidate->application->id}}">Video giới thiệu</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body flex justify-center">
+                        <video width="800" height="800" controls>
+                          <source src="{{$candidate->video_intro_path}}" type="video/mp4">
+                          Trình duyệt của bạn không hỗ trợ trình phát video
+                        </video>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endif
 
               <!-- Modal -->
               <div class="modal fade" id="cvModal-{{$candidate->application->id}}" tabindex="-1">
