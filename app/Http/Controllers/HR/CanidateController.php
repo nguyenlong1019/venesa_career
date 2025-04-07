@@ -26,12 +26,40 @@ class CanidateController extends Controller
 
         $query_name = $request->query('name');
         $query_status = $request->query('status');
+        $query_experience = $request->query('experience');
+        $query_language = $request->query('language_certificate');
+        $query_keywords = $request->query('keywords');
 
         if ($query_name) {
             $candidates = $candidates->where('name', 'like', '%' . $query_name . '%');
         }
         if ($query_status) {
             $candidates = $candidates->where('status', $query_status);
+        }
+
+        if ($query_experience) {
+            $candidates->where(function ($q) use ($query_experience) {
+                foreach ($query_experience as $word) {
+                    $q->orWhere('cv_text_scan', 'like', '%' . $word . '%');
+                }
+            });
+        }
+
+        if ($query_language) {
+            $candidates->where(function ($q) use ($query_language) {
+                foreach ($query_language as $word) {
+                    $q->orWhere('cv_text_scan', 'like', '%' . $word . '%');
+                }
+            });
+        }
+
+        if ($query_keywords) {
+            $keywords = explode(' ', $query_keywords);
+            $candidates->where(function ($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->orWhere('cv_text_scan', 'like', '%' . $word . '%');
+                }
+            });
         }
 
         if (!is_a($candidates, 'Illuminate\Database\Eloquent\Collection')) {
@@ -49,7 +77,10 @@ class CanidateController extends Controller
             'candidates' => $candidates,
             'candidates_before_filtered' => $candidates_before_filtered,
             'query_name' => $query_name,
-            'query_status' => $query_status
+            'query_status' => $query_status,
+            'query_experience' => $query_experience,
+            'query_language' => $query_language,
+            'query_keywords' => $query_keywords
         ]);
     }
 

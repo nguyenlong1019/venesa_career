@@ -18,9 +18,11 @@
             <label for="experience">Kinh nghiệm (năm)</label>
             <select class="form-select" name="experience" id="experience">
               <option value="">Tất cả</option>
+              <option value="Chưa có KN">Chưa có kinh nghiệm</option>
               <option value="6 tháng">6 tháng</option>
               <option value="1 năm">1 năm</option>
               <option value="2 năm">2 năm</option>
+              <option value="Trên 2 năm">Trên 2 năm</option>
             </select>
           </div>
 
