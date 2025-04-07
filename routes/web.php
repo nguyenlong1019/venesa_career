@@ -24,6 +24,7 @@ Route::get('/candidate/register', [JobController::class, 'register']);
 Route::post('/candidate/register', [JobController::class, 'register_user']);
 Route::get('/candidate', [CandidateController::class, 'index']);
 Route::get('/candidate/cv-list', [CandidateController::class, 'list_aplly']);
+Route::post('/candidate/update', [CandidateController::class, 'updatePhone']);
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
     Route::get('/login', [SessionsController::class, 'create'])->name('login');

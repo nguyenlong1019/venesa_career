@@ -5,6 +5,7 @@
   </div>
   <ul class="sidebar-menu">
     <li class="active"><a href="#">Profile</a></li>
+    <li><a href="/">Jobs</a></li>
     <li><a href="/candidate/cv-list">CV</a></li>
     <li><a href="/company/logout">Logout</a></li>
   </ul>

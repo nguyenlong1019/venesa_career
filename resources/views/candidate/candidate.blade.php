@@ -60,7 +60,20 @@
 
 <div class="form-container">
     <h2>Chỉnh sửa thông tin</h2>
-    <form action="/user/update" method="POST">
+    @if (session('success'))
+  <div style="color: green; margin-bottom: 10px;">
+    {{ session('success') }}
+  </div>
+@endif
+
+@if ($errors->any())
+  <div style="color: red; margin-bottom: 10px;">
+    @foreach ($errors->all() as $error)
+      <div>{{ $error }}</div>
+    @endforeach
+  </div>
+@endif
+    <form action="/candidate/update" method="POST">
       @csrf
 
       <div class="form-group">
@@ -83,4 +96,7 @@
       </div>
     </form>
   </div>
+
+  
+
 @endsection
