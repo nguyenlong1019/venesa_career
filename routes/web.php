@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Candidate\CandidateController;
 use App\Http\Controllers\Candidate\JobController;
 use App\Http\Controllers\HR\CanidateController;
 use App\Http\Controllers\HR\InterviewController;
@@ -19,6 +20,10 @@ Route::get('/jobs', [JobController::class, 'list_jobs']);
 Route::post('/jobs', [JobController::class, 'search_jobs']);
 Route::get('/jobs/{id}', [JobController::class, 'job_detail'])->where('id', '[0-9]+');
 Route::post('/jobs/{id}', [JobController::class, 'apply'])->where('id', '[0-9]+');
+Route::get('/candidate/register', [JobController::class, 'register']);
+Route::post('/candidate/register', [JobController::class, 'register_user']);
+Route::get('/candidate', [CandidateController::class, 'index']);
+Route::get('/candidate/cv-list', [CandidateController::class, 'list_aplly']);
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
     Route::get('/login', [SessionsController::class, 'create'])->name('login');

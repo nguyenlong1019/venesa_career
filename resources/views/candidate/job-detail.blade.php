@@ -59,6 +59,7 @@
 
         <div id="apply-form">
           <h4 class="mb-4">Ứng tuyển</h4>
+          @auth
           <form action="/jobs/{{$job->id}}#working_time" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row g-3">
@@ -106,6 +107,15 @@
               </div>
             </div>
           </form>
+          @endauth
+
+          @guest
+            <!-- Nếu chưa login -->
+            <div class="text-center">
+              <p class="text-danger fw-bold">Bạn cần đăng nhập để ứng tuyển công việc này.</p>
+              <a href="/login" class="btn btn-outline-primary">Đăng nhập để nộp CV</a>
+            </div>
+          @endguest
         </div>
       </div>
 

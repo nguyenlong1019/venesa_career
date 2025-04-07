@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApplyJobRequest;
+use App\Http\Requests\RegisterUserRequest;
 use App\Models\Application;
 use App\Models\Candidate;
 use App\Models\Job;
+use App\Models\User;
 use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class JobController extends Controller
 {
@@ -24,6 +28,41 @@ class JobController extends Controller
             'latest_jobs' => $latest_jobs,
             'popular_jobs' => $popular_jobs
         ]);
+    }
+
+    public function register() 
+    {
+        return view('company.register');
+    }
+
+    public function register_user(RegisterUserRequest $request) 
+    {
+        $validated = $request->validated();
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        DB::beginTransaction();
+
+        $user_role = "CANDIDATE";
+
+        try {
+            User::create([
+                'email' => $validated['email'],
+                'password' => $validated['password'],
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'role' => $user_role
+            ]);
+
+            session()->flash('success', 'Tạo tài khoản thành công!');
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollBack();
+        }
+
+        return redirect('/');
     }
 
     public function list_jobs(Request $request)
@@ -124,6 +163,10 @@ class JobController extends Controller
 
     public function apply(ApplyJobRequest $request, $id)
     {
+        if (!Auth::check()) {
+            return redirect('/login')->with('error', 'Bạn cần đăng nhập để ứng tuyển.');
+        }
+
         $validated = $request->validated();
 
         $current_job = Job::findOrFail($id);
@@ -148,14 +191,16 @@ class JobController extends Controller
 
             if ($cv->move(public_path('uploads'), $cvName)) {
                 $cv_path = '/' . 'uploads/' . $cvName;
-                echo $cv_path;
-
-                try {
-                    $parser = new Parser();
-                    $pdf = $parser->parseFile(public_path('uploads/' . $cvName));
-                    $cv_text = $pdf->getText();
-                } catch (\Exception $e) {
-                    session()->flash('error', 'Không thể đọc nội dung từ CV.');
+                // 
+                
+                if ($cv_path) {
+                    try {
+                        $parser = new Parser();
+                        $pdf = $parser->parseFile(public_path('uploads/' . $cvName));
+                        $cv_text = $pdf->getText();
+                    } catch (\Exception $e) {
+                        session()->flash('error', 'Không thể đọc nội dung từ CV.');
+                    }
                 }
 
             } else {
@@ -198,8 +243,11 @@ class JobController extends Controller
                 'video_path' => $video_intro_path,
                 'cv_text_scan' => $cv_text,
                 'cover_letter' => $request->input('cover_letter'),
-                'status' => 'Ứng tuyển'
+                'status' => 'Ứng tuyển',
+                'user_id' => Auth::id(),
             ]);
+
+            echo Auth::id();
 
             Application::create([
                 'job_id' => $current_job->id,

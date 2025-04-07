@@ -38,6 +38,9 @@ class SessionsController extends Controller
                 case "MANAGER":
                     return redirect('/company/campaigns');
                     break;
+                case "CANDIDATE":
+                    return redirect('/candidate');
+                    break;
                 default:
                     return redirect("/");
             }
