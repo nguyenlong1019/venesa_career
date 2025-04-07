@@ -3,7 +3,7 @@
   <div class="container py-5">
     <div class="row g-5">
       <div class="col-lg-4 col-md-6">
-        <h5 class="text-white mb-4">JobEntry</h5>
+        <h5 class="text-white mb-4">Venesa career</h5>
         <a class="btn btn-link text-white-50" href="">Thông tin</a>
         <a class="btn btn-link text-white-50" href="">Dịch vụ</a>
         <a class="btn btn-link text-white-50" href="">Chính sách</a>
