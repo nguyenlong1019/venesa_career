@@ -7,6 +7,7 @@ use App\Http\Requests\ApplyJobRequest;
 use App\Models\Application;
 use App\Models\Candidate;
 use App\Models\Job;
+use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -139,6 +140,7 @@ class JobController extends Controller
 
         $cv_path = "";
         $video_intro_path = "";
+        $cv_text = "";
 
         if ($request->hasfile('cv')) {
             $cv = $request->file('cv');
@@ -147,6 +149,15 @@ class JobController extends Controller
             if ($cv->move(public_path('uploads'), $cvName)) {
                 $cv_path = '/' . 'uploads/' . $cvName;
                 echo $cv_path;
+
+                try {
+                    $parser = new Parser();
+                    $pdf = $parser->parseFile(public_path('uploads/' . $cvName));
+                    $cv_text = $pdf->getText();
+                } catch (\Exception $e) {
+                    session()->flash('error', 'Không thể đọc nội dung từ CV.');
+                }
+
             } else {
                 session()->flash('error', 'Upload CV thất bại');
                 return back();
@@ -185,6 +196,7 @@ class JobController extends Controller
                 'phone' => $validated['candidate_phone'],
                 'cv_path' => $cv_path,
                 'video_path' => $video_intro_path,
+                'cv_text_scan' => $cv_text,
                 'cover_letter' => $request->input('cover_letter'),
                 'status' => 'Ứng tuyển'
             ]);
