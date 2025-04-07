@@ -62,6 +62,7 @@
           @auth
           <form action="/jobs/{{$job->id}}#working_time" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}">
             <div class="row g-3">
               <div class="col-12 col-sm-6">
                 <label for="candidate_name" class="fw-bold">Họ tên <span class="text-danger">*</span></label>

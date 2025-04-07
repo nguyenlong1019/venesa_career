@@ -23,7 +23,8 @@ class Candidate extends Model
         'cover_letter',
         'status',
         'video_path',
-        'cv_text_scan'
+        'cv_text_scan',
+        'user_id'
     ];
 
     public function application(): HasOne
