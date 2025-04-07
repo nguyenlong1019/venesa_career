@@ -19,7 +19,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="/company/campaigns/reports" class="nav-link">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i style="font-size: 1rem;" class="fas fa-lg fa-chart-bar ps-2 pe-2 text-center text-dark" aria-hidden="true"></i>
           </div>

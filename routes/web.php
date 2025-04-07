@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CampaignReportController;
 use App\Http\Controllers\Candidate\CandidateController;
 use App\Http\Controllers\Candidate\JobController;
 use App\Http\Controllers\HR\CanidateController;
@@ -56,6 +57,8 @@ Route::prefix('company')->middleware(['auth'])->group(function () {
         Route::post('/{id}/update', [CampaignController::class, 'post_update'])->where('id', '[0-9]+');
         Route::get('{id}/delete', [CampaignController::class, 'delete'])->where('id', '[0-9]+');
         Route::get('{id}/recruitment-news', [CampaignController::class, 'list_recruitment_news'])->where('id', '[0-9]+');
+        Route::get('reports', [CampaignReportController::class, 'index']);
+        Route::get('report/{campaignId}', [CampaignReportController::class, 'show']);
     });
 
     Route::prefix('recruitment-news')->group(function () {
