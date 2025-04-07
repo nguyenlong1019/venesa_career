@@ -324,6 +324,8 @@
     <i class="fa fa-comments"></i> <!-- Icon chat -->
 </button>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 <div class="chatbot-container">
     <div class="chatbot-header">
@@ -334,7 +336,7 @@
         <!-- Nội dung trả lời chatbot sẽ hiển thị ở đây -->
     </div>
     <div class="chatbot-footer">
-        <input type="text" id="user-input" class="form-control" placeholder="Hỏi tôi điều gì...">
+        <input type="text" name="message" id="user-input" class="form-control" placeholder="Hỏi tôi điều gì...">
         <button class="btn btn-primary" id="send-message">Gửi</button>
     </div>
 </div>
@@ -420,14 +422,41 @@
 </style>
 
 <script>
-    // Dữ liệu câu hỏi và trả lời
+// Dữ liệu câu hỏi và trả lời
 const faq = {
-    "Bạn là ai?": "Tôi là chatbot của Thẩm mỹ viện Venesa. Tôi có thể giúp bạn tìm hiểu thông tin về các dịch vụ của chúng tôi.",
-    "Dịch vụ của bạn là gì?": "Chúng tôi cung cấp các dịch vụ chăm sóc sắc đẹp như phẫu thuật thẩm mỹ, chăm sóc da, điều trị mụn, và nhiều dịch vụ khác.",
-    "Giờ làm việc của bạn?": "Thẩm mỹ viện Venesa mở cửa từ 9:00 sáng đến 6:00 chiều, từ thứ 2 đến thứ 7.",
-    "Địa chỉ của bạn ở đâu?": "Chúng tôi có mặt tại số 123, Phố ABC, Quận XYZ, Hà Nội.",
-    "Liệu trình chăm sóc da có dài không?": "Các liệu trình chăm sóc da tại Venesa tùy thuộc vào nhu cầu của bạn, thường kéo dài từ 30 phút đến 2 giờ."
+    "xin chào": "Chào bạn! Tôi là chatbot của Thẩm mỹ viện Venesa. Tôi có thể giúp gì cho bạn hôm nay?",
+    "chào bạn": "Xin chào! Rất vui được hỗ trợ bạn tại Venesa.",
+    "hello": "Chào bạn! Tôi sẵn sàng hỗ trợ bạn.",
+    "hi": "Xin chào! Bạn cần hỏi gì về dịch vụ hoặc tuyển dụng tại Venesa?",
+    "bạn là ai": "Tôi là chatbot của Thẩm mỹ viện Venesa. Tôi có thể giúp bạn tìm hiểu thông tin về các dịch vụ của chúng tôi.",
+    "dịch vụ của bạn": "Chúng tôi cung cấp các dịch vụ chăm sóc sắc đẹp như phẫu thuật thẩm mỹ, chăm sóc da, điều trị mụn, và nhiều dịch vụ khác.",
+    "giờ làm việc": "Thẩm mỹ viện Venesa mở cửa từ 9:00 sáng đến 6:00 chiều, từ thứ 2 đến thứ 7. Luôn có nhân viên hỗ trợ khách hàng 24/7!",
+    "địa chỉ": "Chúng tôi có mặt tại số 123, Phố ABC, Quận XYZ, Hà Nội.",
+    "liệu trình chăm sóc da": "Các liệu trình chăm sóc da tại Venesa tùy thuộc vào nhu cầu của bạn, thường kéo dài từ 30 phút đến 2 giờ.",
+    "venesa là gì": "Venesa là thẩm mỹ viện hàng đầu cung cấp dịch vụ chăm sóc sắc đẹp và sức khỏe làn da.",
+    "thông tin việc làm": "Venesa hiện đang tuyển dụng nhiều vị trí hấp dẫn. Bạn muốn tìm hiểu vị trí nào cụ thể?",
+    "vị trí tuyển dụng": "Chúng tôi đang tuyển các vị trí: nhân viên chăm sóc khách hàng, kỹ thuật viên da, lễ tân, quản lý chi nhánh và chuyên viên marketing.",
+    "lương": "Mức lương tại Venesa cạnh tranh, dao động từ 7 triệu đến hơn 20 triệu tùy vị trí và kinh nghiệm. Ngoài ra còn có hoa hồng và thưởng theo hiệu suất.",
+    "chính sách phúc lợi": "Venesa cung cấp BHYT, BHXH, thưởng lễ/tết, du lịch thường niên, và môi trường làm việc chuyên nghiệp.",
+    "cách ứng tuyển": "Bạn có thể nộp CV qua email: tuyendung@venesa.vn hoặc liên hệ trực tiếp phòng nhân sự qua số 1900 123 456.",
+    "hỗ trợ trực tiếp": "Bạn có thể yêu cầu nhân viên liên hệ lại bằng cách để lại số điện thoại hoặc nhắn trực tiếp trên Fanpage của Venesa.",
+    "hẹn lịch tư vấn": "Vui lòng cung cấp số điện thoại và khung giờ mong muốn, chúng tôi sẽ liên hệ để xác nhận lịch tư vấn.",
+    "khuyến mãi": "Hiện tại Venesa có nhiều chương trình ưu đãi hấp dẫn, ví dụ: trị liệu da giảm 40%, tặng bộ mỹ phẩm cao cấp cho liệu trình > 5 triệu.",
+    "thẩm mỹ viện venesa": "Venesa là một trong những thương hiệu hàng đầu về làm đẹp tại Việt Nam, được hàng nghìn khách hàng tin tưởng mỗi năm.",
+    "đào tạo nghề": "Venesa có các khóa đào tạo nghề spa và chăm sóc da chuyên nghiệp dành cho học viên muốn theo ngành thẩm mỹ.",
 };
+
+function findAnswer(userInput) {
+    const lowerInput = userInput.toLowerCase();
+
+    for (const key in faq) {
+        if (lowerInput.includes(key)) {
+            return faq[key];
+        }
+    }
+
+    return null;
+}
 
 // Hiển thị chatbot khi click vào nút
 document.getElementById('chatbot-button').addEventListener('click', () => {
@@ -449,14 +478,32 @@ document.getElementById('send-message').addEventListener('click', () => {
         chatbotBody.innerHTML += `<div class="user-message">${userInput}</div>`;
         document.getElementById('user-input').value = ''; // Xóa input
 
-        // Tìm câu trả lời từ FAQ
-        const answer = faq[userInput] || "Xin lỗi, tôi không hiểu câu hỏi của bạn.";
+        const localAnswer = findAnswer(userInput);
 
-        // Thêm câu trả lời từ chatbot vào
-        setTimeout(() => {
-            chatbotBody.innerHTML += `<div class="chatbot-message">${answer}</div>`;
-            chatbotBody.scrollTop = chatbotBody.scrollHeight; // Cuộn đến cuối
-        }, 500);
+        if (localAnswer) {
+            // Thêm câu trả lời từ chatbot vào
+            setTimeout(() => {
+                chatbotBody.innerHTML += `<div class="chatbot-message">${answer}</div>`;
+                chatbotBody.scrollTop = chatbotBody.scrollHeight; // Cuộn đến cuối
+            }, 500);
+        } else {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch('/chatbot/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken},
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(res => res.json())
+            .then(data => {
+                chatbotBody.innerHTML += `<div class="chatbot-message">${data.reply}</div>`;
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            })
+            .catch(err => {
+                console.log(err);
+                chatbotBody.innerHTML += `<div class="chatbot-message">Xin lỗi, hiện tại tôi không thể trả lời câu hỏi của bạn.</div>`;
+            });
+        }
+
     }
 });
 

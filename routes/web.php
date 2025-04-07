@@ -11,6 +11,7 @@ use App\Http\Controllers\HR\RecruitmentController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Manager\CampaignController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Middleware\AuthAdmin;
 use App\Http\Middleware\AuthManager;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -26,6 +27,7 @@ Route::post('/candidate/register', [JobController::class, 'register_user']);
 Route::get('/candidate', [CandidateController::class, 'index']);
 Route::get('/candidate/cv-list', [CandidateController::class, 'list_aplly']);
 Route::post('/candidate/update', [CandidateController::class, 'updatePhone']);
+Route::post('/chatbot/ask', [ChatbotController::class, 'ask']);
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
     Route::get('/login', [SessionsController::class, 'create'])->name('login');
