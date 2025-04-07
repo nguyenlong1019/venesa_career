@@ -109,6 +109,15 @@
                   <i class=" bi bi-eye"></i> Xem CV
                 </button>
               </div>
+              <div class="py-3">
+                <label for="name" class="text-sm mr-3">Video ứng tuyển :</label>
+                <button
+                  type="button"
+                  class="text-xs bg-green-500 text-white font-bold py-1.5 px-4 rounded-md hover:opacity-80"
+                  data-bs-toggle="modal" data-bs-target="#video-modal">
+                  <i class=" bi bi-eye"></i> Xem Video
+                </button>
+              </div>
               @if ($application->candidate->cover_letter)
               <div class="form-group">
                 <label for="cover_letter" class="text-sm">Thư ứng tuyển</label>
@@ -143,6 +152,27 @@
           width="800"
           height="800">
         </object>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="video-modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="cv-modal-label">Video ứng tuyển</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body flex justify-center">
+        <video width="800" height="450" controls>
+          <source src="{{$application->candidate->video_path}}" type="video/mp4">
+          Trình duyệt của bạn không hỗ trợ video.
+        </video>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>

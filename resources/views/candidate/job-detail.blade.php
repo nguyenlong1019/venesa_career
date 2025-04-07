@@ -95,9 +95,9 @@
                 <textarea class="form-control" rows="5" placeholder="Thư giới thiệu" id="cover_letter" name="cover_letter"></textarea>
               </div>
               <div class="col-12">
-                <label for="video-intro" class="fw-bold">Video giới thiệu bản thân</label>
-                <input class="form-control" rows="5" type="file" id="video-intro" name="video-intro" />
-                @error('video-intro')
+                <label for="video_path" class="fw-bold">Video giới thiệu bản thân</label>
+                <input class="form-control" type="file" id="video_path" name="video_path" />
+                @error('video_path')
                 <p class="text-danger text-sm fw-bold mt-2">{{ $message }}</p>
                 @enderror
               </div>

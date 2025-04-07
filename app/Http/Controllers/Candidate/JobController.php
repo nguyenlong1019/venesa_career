@@ -156,10 +156,10 @@ class JobController extends Controller
             return back();
         }
 
-        if ($request->hasfile('video-intro')) {
+        if ($request->hasfile('video_path')) {
             Log::info('Video file detected');
 
-            $video_intro = $request->file('video-intro');
+            $video_intro = $request->file('video_path');
 
             if ($video_intro->getSize() > 20 * 1024 * 1024) {
                 session()->flash('error', 'Video không được vượt quá 20 MB');
@@ -184,7 +184,7 @@ class JobController extends Controller
                 'email' => $validated['candidate_email'],
                 'phone' => $validated['candidate_phone'],
                 'cv_path' => $cv_path,
-                'video_intro_path' => $video_intro_path,
+                'video_path' => $video_intro_path,
                 'cover_letter' => $request->input('cover_letter'),
                 'status' => 'Ứng tuyển'
             ]);

@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CanidateController extends Controller
 {
@@ -79,6 +80,7 @@ class CanidateController extends Controller
         $current_job = Job::findOrFail($validated['job_id']);
 
         $cv_path = "";
+        $video_intro_path = "";
 
         if ($request->hasfile('cv')) {
             $cv = $request->file('cv');
@@ -96,6 +98,26 @@ class CanidateController extends Controller
             return back();
         }
 
+        if ($request->hasfile('video_path')) {
+            Log::info('Video file detected');
+
+            $video_intro = $request->file('video_path');
+
+            if ($video_intro->getSize() > 20 * 1024 * 1024) {
+                session()->flash('error', 'Video không được vượt quá 20 MB');
+                return back();
+            }
+
+            $videoName = time() . rand(1, 1000) . '.' . $video_intro->extension();
+            if ($video_intro->move(public_path('uploads/videos'), $videoName)) {
+                $video_intro_path = '/uploads/videos/' . $videoName;
+                echo $video_intro_path;
+            } else {
+                session()->flash('error', 'Upload Video thất bại');
+                return back();
+            }
+        }
+
         DB::beginTransaction();
 
         try {
@@ -104,6 +126,7 @@ class CanidateController extends Controller
                 'email' => $validated['email'],
                 'phone' => $validated['phone'],
                 'cv_path' => $cv_path,
+                'video_path' => $video_intro_path,
                 'status' => 'Ứng tuyển'
             ]);
 

@@ -20,9 +20,10 @@ class Candidate extends Model
         'identity_card',
         'address',
         'cv_path',
-        'video_intro_path',
         'cover_letter',
-        'status'
+        'status',
+        'video_path',
+        'cv_text_scan'
     ];
 
     public function application(): HasOne

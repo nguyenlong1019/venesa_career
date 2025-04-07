@@ -57,7 +57,7 @@
                 class="w-full rounded-lg py-2 px-4"
                 @endif>
                 <i class="fa-solid fa-file-circle-check"></i>
-                Phỏng vấn doanh nghiệp
+                Thực tập doanh nghiệp
               </div>
             </div>
             <div class="w-full">

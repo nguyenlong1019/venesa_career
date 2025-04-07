@@ -61,10 +61,9 @@
                 @enderror
               </div>
               <div class="form-group">
-                <label for="video-intro">Video giới thiệu <span class="text-danger">*</span></label>
-                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="video-intro"
-                  name="video-intro" type="file">
-                @error('video_intro')
+                <label for="video_path" class="fw-bold">Video giới thiệu bản thân</label>
+                <input class="form-control" type="file" id="video_path" name="video_path" />
+                @error('video_path')
                 <p class="text-danger text-sm fw-bold mt-2">{{ $message }}</p>
                 @enderror
               </div>
