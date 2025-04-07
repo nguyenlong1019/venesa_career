@@ -32,7 +32,7 @@ class InterviewNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('company@enuy.example.com', 'Enuy company'),
+            from: new Address('company@venesa.example.com', 'Venesa company'),
             subject: $this->subject,
         );
     }

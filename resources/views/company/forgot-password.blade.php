@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login | Enuy</title>
+  <title>Login | Venesa</title>
   <!-- Fonts and icons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Main CSS -->
@@ -25,7 +25,7 @@
                 <div class="card-header pb-0 text-center bg-transparent">
                   <a class="align-items-center d-flex justify-content-center m-0 navbar-brand text-wrap" href="/">
                     <img src="/assets/admin/img/logo-ct.png" height="30" class="navbar-brand-img opacity-7" alt="logo">
-                    <span class="ms-2 font-weight-bold text-secondary">Enuy - Job portal website</span>
+                    <span class="ms-2 font-weight-bold text-secondary">Venesa Career</span>
                   </a>
                   <h3 class="font-weight-bolder text-primary pt-2">Quên mật khẩu?</h3>
                 </div>

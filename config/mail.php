@@ -110,7 +110,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'onboarding@resend.dev'),
-        'name' => env('MAIL_FROM_NAME', 'Enuy company'),
+        'name' => env('MAIL_FROM_NAME', 'Venesa company'),
     ],
 
 ];

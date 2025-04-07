@@ -11,7 +11,7 @@
                 <div class="container">
                     <div class="row justify-content-start">
                         <div class="col-10 col-lg-8">
-                            <h1 class="display-3 text-white animated slideInDown mb-4">Tìm việc làm nhanh 24h, việc làm mới nhất tại Enuy.</h1>
+                            <h1 class="display-3 text-white animated slideInDown mb-4">Tìm việc làm nhanh 24h, việc làm mới nhất tại Venesa.</h1>
                             <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
                             <a href="/jobs" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight">Tìm việc làm</a>
                             <!-- <a href="/dashboard" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Tuyển ứng viên</a> -->
@@ -451,7 +451,7 @@ document.getElementById('send-message').addEventListener('click', () => {
 
         // Tìm câu trả lời từ FAQ
         const answer = faq[userInput] || "Xin lỗi, tôi không hiểu câu hỏi của bạn.";
-        
+
         // Thêm câu trả lời từ chatbot vào
         setTimeout(() => {
             chatbotBody.innerHTML += `<div class="chatbot-message">${answer}</div>`;
