@@ -483,7 +483,7 @@ document.getElementById('send-message').addEventListener('click', () => {
         if (localAnswer) {
             // Thêm câu trả lời từ chatbot vào
             setTimeout(() => {
-                chatbotBody.innerHTML += `<div class="chatbot-message">${answer}</div>`;
+                chatbotBody.innerHTML += `<div class="chatbot-message">${localAnswer}</div>`;
                 chatbotBody.scrollTop = chatbotBody.scrollHeight; // Cuộn đến cuối
             }, 500);
         } else {
