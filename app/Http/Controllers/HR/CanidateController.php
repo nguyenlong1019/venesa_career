@@ -38,6 +38,10 @@ class CanidateController extends Controller
         }
 
         if ($query_experience) {
+            if (is_string($query_experience)) {
+                $query_experience = explode(',', $query_experience);
+            }
+
             $candidates->where(function ($q) use ($query_experience) {
                 foreach ($query_experience as $word) {
                     $q->orWhere('cv_text_scan', 'like', '%' . $word . '%');
@@ -46,6 +50,10 @@ class CanidateController extends Controller
         }
 
         if ($query_language) {
+            if (is_string($query_language)) {
+                $query_language = explode(',', $query_language);
+            }
+
             $candidates->where(function ($q) use ($query_language) {
                 foreach ($query_language as $word) {
                     $q->orWhere('cv_text_scan', 'like', '%' . $word . '%');
