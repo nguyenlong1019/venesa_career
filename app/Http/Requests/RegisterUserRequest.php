@@ -27,7 +27,7 @@ class RegisterUserRequest extends FormRequest
             'password' => ['required', 'min:5', 'max:20'],
             'name' => ['required', 'max:50'],
             'phone' => ['required', 'digits_between:10,11'],
-            // 'role' => ['required']
+            'role' => ['required']
             // 'company_name' => ['required'],
             // 'province' => ['required'],
             // 'address' => ['required'],
@@ -46,7 +46,7 @@ class RegisterUserRequest extends FormRequest
             'name.required' => 'Họ và tên không được để trống',
             'phone.required' => 'Số điện thoại không được để trống',
             'phone.digits_between' => 'Số điện thoại phải chứa từ 10-11 chữ số',
-            // 'role' => 'Vui lòng chọn chức vụ'
+            'role' => 'Vui lòng chọn chức vụ'
             // 'company_name.required' => 'Tên công ty không được để trống',
             // 'province.required' => 'Tỉnh/Thành phố không được để trống',
             // 'address' => 'Địa chỉ không được để trống'
