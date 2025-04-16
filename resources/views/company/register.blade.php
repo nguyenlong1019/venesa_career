@@ -64,6 +64,7 @@
                       <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
                     </div>
+                    <input type="hidden" name="role" id="role" value="CANDIDATE">
                     <div class="text-center">
                       <button type="submit" class="btn bg-primary text-white w-100 mt-4 mb-0">Đăng ký</button>
                     </div>
