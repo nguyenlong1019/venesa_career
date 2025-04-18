@@ -147,8 +147,8 @@
             <label for="type" class="text-sm">Vòng phỏng vấn</label>
             <select class="form-select" name="type" id="type">
               <option value="">Tất cả</option>
-              <option value="Phỏng vấn chuyên sâu" @if($query_type==="Phỏng vấn chuyên sâu" ) selected @endif>Phỏng vấn chuyên sâu</option>
-              <option value="Phỏng vấn doanh nghiệp" @if($query_type==="Phỏng vấn doanh nghiệp" ) selected @endif>Phỏng vấn doanh nghiệp</option>
+              <option value="Phỏng vấn chuyên sâu" @if($query_type==="Phỏng vấn chuyên sâu" ) selected @endif>Phỏng vấn</option>
+              <option value="Phỏng vấn doanh nghiệp" @if($query_type==="Phỏng vấn doanh nghiệp" ) selected @endif>Thử việc</option>
             </select>
           </div>
           <div class="form-group">
